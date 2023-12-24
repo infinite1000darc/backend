@@ -4,6 +4,8 @@ import static spark.Spark.*;
 
 import com.google.gson.Gson;
 
+import spark.Spark;
+
 public class TiendaWS {
 
     public static Gson gson = new Gson();
@@ -13,35 +15,29 @@ public class TiendaWS {
     public static void main(String[] args) {
 
         port(80); //80
-
-        options("/*",(request,response)->{
-            String accessControlRequestHeaders=request.headers("Access-Control-Request-Headers");
-            if(accessControlRequestHeaders!=null){
-            response.header("Access-Control-Allow-Headers",accessControlRequestHeaders);
-            }
-            String accessControlRequestMethod=request.headers("Access-Control-Request-Method");
-            if(accessControlRequestMethod!=null){
-            response.header("Access-Control-Allow-Methods",accessControlRequestMethod);
-            }
-            return "OK";
-            });
-
-        options("/*", (request, response) -> {
-            String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
-            System.out.println(accessControlRequestHeaders);
+        
+        Spark.staticFiles.location("/assets");
+        Spark.staticFiles.header("Access-Control-Allow-Origin", "*");
+        
+        options("/*", (req, res) -> {
+            String accessControlRequestHeaders = req.headers("Access-Control-Request-Headers");
             if (accessControlRequestHeaders != null) {
-                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+                res.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
             }
-            String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
-            System.out.println(accessControlRequestMethod);
-            if (accessControlRequestMethod != null) {
-                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
-            }
-            return "OK";
 
+            String accessControlRequestMethod = req.headers("Access-Control-Request-Method");
+            if (accessControlRequestMethod != null) {
+                res.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+            }
+
+            return "OK";
         });
 
-        before((req, res) -> res.header("Access-Control-Allow-Origin", "*"));
+        before((req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "*");
+            res.type("application/json");
+        });
 
         post("loging", (request, response) -> {
             Gson gsonRespuesta = new Gson();
