@@ -14,6 +14,18 @@ public class TiendaWS {
 
         port(80); //80
 
+        options("/*",(request,response)->{
+            String accessControlRequestHeaders=request.headers("Access-Control-Request-Headers");
+            if(accessControlRequestHeaders!=null){
+            response.header("Access-Control-Allow-Headers",accessControlRequestHeaders);
+            }
+            String accessControlRequestMethod=request.headers("Access-Control-Request-Method");
+            if(accessControlRequestMethod!=null){
+            response.header("Access-Control-Allow-Methods",accessControlRequestMethod);
+            }
+            return "OK";
+            });
+
         options("/*", (request, response) -> {
             String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
             System.out.println(accessControlRequestHeaders);
