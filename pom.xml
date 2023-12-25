@@ -102,7 +102,7 @@
             <configuration>
                 <archive>
                     <manifest>
-                        <mainClass>main.java.mx.uv.TiendaWS</mainClass>
+                        <mainClass>mx.uv.TiendaWS</mainClass>
                     </manifest>
                 </archive>
             </configuration>
