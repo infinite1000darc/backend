@@ -108,6 +108,22 @@
             </configuration>
         </plugin>
         
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.2.4</version> <!-- Usa la versión más reciente -->
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <createDependencyReducedPom>false</createDependencyReducedPom>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
