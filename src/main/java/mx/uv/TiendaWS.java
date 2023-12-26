@@ -14,7 +14,7 @@ public class TiendaWS {
 
     public static void main(String[] args) {
 
-        port(80); //80
+        //port(80); //80
         
         Spark.staticFiles.location("/assets");
         Spark.staticFiles.header("Access-Control-Allow-Origin", "*");
