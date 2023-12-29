@@ -312,7 +312,7 @@ public class DAO {
         
         try {
         
-            String addToCartQuery = "INSERT INTO carrito (idCarrito, idProducto) VALUES (?,?) ON DUPLICATE KEY UPDATE cantidad = cantidad + 1 ";   
+            String addToCartQuery = "INSERT INTO carrito (idCarrito, idProducto, cantidad) VALUES (?,?,1) ON DUPLICATE KEY UPDATE cantidad = cantidad + 1 ";   
             stm = (PreparedStatement) conn.prepareStatement(addToCartQuery);
             stm.setInt(1, idProducto);
             stm.setInt(2, idProducto);
